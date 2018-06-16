@@ -792,7 +792,7 @@ void init_gensgd(bool load_factors_from_file){
   double factor = 0.1/sqrt(D);
 #pragma omp parallel for
   for (int i=0; i< nodes; i++){
-    latent_factors_inmem[i].pvec = (debug ? 0.1*fones(D) : (::frandu(D)*factor));
+    latent_factors_inmem[i].pvec = ::frandu(D)*factor;
   }
   }
 

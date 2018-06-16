@@ -254,7 +254,7 @@ struct RatingVerticesInMemProgram : public GraphChiProgram<VertexDataType, EdgeD
     else for (int i=0; i<howmany; i++){
       int random_other = ::randi(M, M+N-1);
       vertex_data & other = latent_factors_inmem[random_other];
-      double dist;
+      double dist = NAN;
       if (algo != SVD && algo != CLIMF)
            als_predict(vdata, other, 0, dist); 
       else if (algo == CLIMF)

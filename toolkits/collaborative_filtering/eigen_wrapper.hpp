@@ -192,7 +192,7 @@ inline ivec sort_index(const vec&a){
   // 	
   D.reserve(a.size());
   for (int i=0;i<a.size();i++)
-    D.push_back(std::make_pair<double,int>(a.coeff(i),i));
+    D.push_back(std::make_pair(a.coeff(i),i));
   std::sort(D.begin(),D.end());
   for (int i=0;i<a.size();i++)
   { 
@@ -657,7 +657,7 @@ inline ivec reverse_sort_index2(const vec&a, const ivec&indices, vec & out, int 
 
   D.reserve(a.size());
   for (int i=0;i<a.size();i++)
-    D.push_back(std::make_pair<double,int>(a[i],indices[i]));
+    D.push_back(std::make_pair(a[i],indices[i]));
   std::partial_sort(D.begin(),D.begin() + size, D.end(), pair_compare);
   for (int i=0;i< size;i++)
   { 
@@ -674,7 +674,7 @@ inline ivec reverse_sort_index(const vec& a, int K){
 
   D.reserve(a.size());
   for (int i=0;i<a.size();i++)
-    D.push_back(std::make_pair<double,int>(a[i],i));
+    D.push_back(std::make_pair(a[i],i));
   std::partial_sort(D.begin(),D.begin() + size, D.end(), pair_compare);
   for (int i=0;i< size;i++)
   { 
@@ -690,7 +690,8 @@ inline ivec reverse_sort_index(sparse_vec& a, int K){
 
   D.reserve(nnz(a));
   FOR_ITERATOR(i, a){  
-    D.push_back(std::make_pair<double,int>(i.value(),i.index()));
+    double v = i.value();
+    D.push_back(std::make_pair(v,i.index()));
   }
   std::partial_sort(D.begin(),D.begin() + size, D.end(), pair_compare);
   for (int i=0;i< size;i++)

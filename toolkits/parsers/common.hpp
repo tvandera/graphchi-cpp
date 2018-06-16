@@ -107,7 +107,6 @@ void save_map_to_text_file(const std::map<std::string,uint> & map, const std::st
 }
 void save_vec_to_text_file(const std::vector<std::string> & vec, const std::string filename){
     out_file fout(filename);
-    unsigned int total = 0;
     for (int i = 0; i< (int)vec.size(); i++){ 
       fprintf(fout.outf, "%s\n", vec[i].c_str());
     } 

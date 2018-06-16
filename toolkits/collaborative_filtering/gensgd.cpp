@@ -272,7 +272,8 @@ float compute_prediction(
       int pos2 = 2+fc.total_features;
       pos = fc.offsets[pos2] + j.index();
       assert((uint)pos2 < fc.node_id_maps.size());
-      if (j.index() >= fc.node_id_maps[pos2].string2nodeid.size()){
+      int sz = fc.node_id_maps[pos2].string2nodeid.size();
+      if (j.index() >= sz) {
         std::cout<<"Bug : " << j.index()  << " is big: " << loc << " " << fc.node_id_maps[pos2].string2nodeid.size() <<std::endl;
         //assert(j.index() < (int)fc.node_id_maps[loc].string2nodeid.size());
       }
@@ -719,7 +720,7 @@ void init_gensgd(bool load_factors_from_file){
     double factor = 0.1/sqrt(D);
 #pragma omp parallel for
     for (int i=0; i< nodes; i++){
-      latent_factors_inmem[i].pvec = (debug ? 0.1*ones(D) : (::randu(D)*factor));
+      latent_factors_inmem[i].pvec = ::randu(D)*factor;
     }
 #pragma omp parallel for
     for (int i=0; i< FEATURE_WIDTH; i++)
