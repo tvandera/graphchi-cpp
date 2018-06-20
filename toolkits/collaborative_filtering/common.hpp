@@ -43,6 +43,8 @@
 //#include "getline.hpp" //fix for missing getline() function on MAC OS
 #endif 
 
+#define SHOW(A) std::cout << std::endl << #A << " = \n" << A << std::endl;
+
 using namespace graphchi;
 
 double minval = -1e100; //max allowed value in matrix
