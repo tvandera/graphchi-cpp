@@ -26,8 +26,8 @@ INCFLAGS = -I/usr/local/include/ -I../../src/ -I.
 INCFLAGS += -I/usr/local/opt/eigen/include/eigen3
 
 # NOTE: Uncomment the flag GRAPHCHI_USE_GSL if you want to compile pmf
-CPPFLAGS = -O3  $(INCFLAGS) -DEIGEN_NDEBUG -fopenmp -Wno-strict-aliasing  -Wall
-#CPPFLAGS = -O3  $(INCFLAGS) -DEIGEN_NDEBUG -Wno-strict-aliasing  -Wall
+CPPFLAGS = -O3 -g $(INCFLAGS) -DEIGEN_NDEBUG -fopenmp -Wno-strict-aliasing  -Wall
+#CPPFLAGS = -O0 -g  $(INCFLAGS) -fopenmp -Wno-strict-aliasing  -Wall
 # NOTE: uncomment the flag -lgsl if you want to compile pmf
 LINKFLAGS = -lz 
 # Note : on Ubuntu on some compilers -lz is not detected properly so it is 
