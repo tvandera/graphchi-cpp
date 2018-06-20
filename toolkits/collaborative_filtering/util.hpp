@@ -1,9 +1,11 @@
 #ifndef __CF_UTILS__
 #define __CF_UTILS__
 
-#include <omp.h>
 #include <stdio.h>
 #include <iostream>
+
+#ifdef _OPENMP
+#include <omp.h>
 
 int number_of_omp_threads(){
   int num_threads = 0;
@@ -16,6 +18,11 @@ int number_of_omp_threads(){
       }
       return num_threads;
 } 
+#else
+int number_of_omp_threads(){
+    return 1;
+}
+#endif
 
 struct  in_file{
   FILE * outf;
