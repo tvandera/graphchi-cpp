@@ -40,21 +40,6 @@ using namespace std;
 //#define WISHART_TEST
 //#define WISHART_TEST2
 
-vec chi2rnd(vec v, int size){
-vec ret = zeros(size);
-  for (int i=0; i<size; i++)
-         ret[i] = 2.0* gamma(v[i]/2.0); 
-
-#ifdef WISHART_TEST
-    ret = vec("9.3343    9.2811    9.3583    9.3652    9.3031");
-      ret*= 1e+04;
-#elif defined(WISHART_TEST2)
-        ret = vec("4.0822e+03");
-#endif
-          return ret;
-
-}
-
 void randv(int n, vec & ret){
    assert(n>=1);
    for (int i=0; i< n; i++)
@@ -155,7 +140,7 @@ vec sequence(int df, int n){
 }
 
 
-mat wishrnd(mat& sigma, double df){
+mat wishrnd(mat& sigma, int df){
 
    mat d;
    //cout<<sigma<<endl;
@@ -166,44 +151,7 @@ mat wishrnd(mat& sigma, double df){
    mat x = zeros(n,n) ,a = zeros(n,n);
    mat b;
 
-   if ((df <= 81+sigma.rows()) && (df == ::round(df))){
-       x = randn((int)df, d.rows())*d;
-   }
-   else {
-       vec seq = sequence(df, n);
-       //cout<<seq<<endl;
-       vec ret = chi2rnd(seq, n);
-       //cout<<ret<<endl;
-       ret = ::sqrt(ret);
-       //assert(ret.size() == n);
-       //cout<<ret<<endl;
-       if (ret.size() == 1) // a scalar variable
-           set_val(a,0,0, ret[0]);
-       else //a matrix 
-           set_diag(a,ret);  
-       
-       assert(a.rows() == n && a.cols() == n); 
-       //cout<<a<<endl;
-      
-       if (ret.size() > 1){
-         b = randn(n*(n-1)/2,1);
-         assert(b.cols() == 1);
-       }
-#ifdef WISHART_TEST
-  b=zeros(10,1); b = mat("0.1139  ;  1.0668 ;  -0.0956 ;  -1.3362; 0.0593 ;  -0.8323  ;  0.7143;     0.2944 ;   1.6236; -0.6918");
-  //b = zeros(10,1); b = mat(" 1.1909 ; 1.1892 ; -0.0376;  0.3273; 0.1746; -0.1867; 0.7258; -0.5883; 2.1832; -0.1364");
-#elif defined(WISHART_TEST2)
-  b = mat(0,0);
-#endif
-
-       if (ret.size() > 1)
-          a = load_itiru(a,b);
-       //assert(a.rows() == n && a.cols() == n); 
-       //cout<<a<<endl;
-       x = a*d;
-       //assert(x.cols() == x.rows() && x.cols() == n);
-       //cout<<x<<endl;
-   }
+   x = randn(df, d.rows())*d;
 
    mat c= transpose(x)*x;
    assert(c.rows() == n && c.cols() == n); 
@@ -286,21 +234,6 @@ void test_mvnrndex(){
   vec ans = init_vec("95532.0115    -0.996855354      2.00914034      2.99521376   -0.0105874825      22.0127606", 6);
   cout<<ret<<endl<<norm(ans-ret)<<endl;
 
-
-}
-
-
-
-
-void test_chi2rnd(){
-   vec ret = zeros(6);
-   vec v = init_vec("95532 95531 95530 95529 95528 95527", 6);
-   for  (int i=0; i< 1000000; i++){
-     ret += chi2rnd(v, 6);
-   }
-  ret /= 1000000;
-  vec ans = init_vec("95531.99 95531.672 95530.016 95530.005 95527.495 95527.447", 6);
-  cout<<ret<<endl<<norm(ans-ret)<<endl;
 
 }
 

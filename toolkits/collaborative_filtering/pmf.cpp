@@ -37,7 +37,7 @@ int pmf_additional_output = 0;
 int debug = 0;
 
 /* variables for PMF */
-double nuAlpha = 1;
+int nuAlpha = 1;
 double Walpha = 1;
 double nu0 = D;
 double alpha = 0;
@@ -163,7 +163,7 @@ void sample_alpha(double res2){
   
   double res = res2;
   if (nuAlpha > 0){
-    double nuAlpha_ =nuAlpha+ L;
+    int nuAlpha_ =nuAlpha+ L;
     mat iWalpha_(1,1);
     set_val(iWalpha_, 0,0,iWalpha + res);
     mat iiWalpha_ = zeros(1,1);
