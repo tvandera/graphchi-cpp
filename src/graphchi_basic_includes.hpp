@@ -32,7 +32,6 @@
 #ifndef GRAPHCHI_DEF_ALLBASIC_INCLUDES
 #define GRAPHCHI_DEF_ALLBASIC_INCLUDES
 
-#include <omp.h>
 #include <sstream>
 
 #include "api/chifilenames.hpp"
